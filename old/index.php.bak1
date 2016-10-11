@@ -1,0 +1,78 @@
+<?php 
+
+echo '
+
+<html>
+<title>Testing Soundman</title>
+<head>
+<style>
+.greenbutton {
+  display: inline-block;
+  padding: 15px 25px;
+  font-size: 24px;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+  outline: none;
+  color: #fff;
+  background-color: #4CAF50;
+  border: none;
+  border-radius: 15px;
+  box-shadow: 0 9px #999;
+}
+.redbutton {
+  display: inline-block;
+  padding: 15px 25px;
+  font-size: 24px;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+  outline: none;
+  color: #fff;
+  background-color: #ff3333;
+  border: none;
+  border-radius: 15px;
+  box-shadow: 0 9px #999;
+}
+
+
+.greenbutton:hover {background-color: #3e8e41}
+.redbutton:hover {background-color: #cc0000}
+
+.greenbutton:active {
+  background-color: #3e8e41;
+  box-shadow: 0 5px #666;
+  transform: translateY(4px);
+}
+.redbutton:active {
+  background-color: #cc0000;
+  box-shadow: 0 5px #666;
+  transform: translateY(4px);
+}
+</style>
+</head>
+
+
+<body bgcolor="404040" text="white">
+<center>
+<h1>Soundman Testing</h1>
+<table cellpadding=10 border=0 style="margin: 0 auto;">
+<tr>
+    <td>
+        <button class=greenbutton ng-click="soundman">Sound Booth</button>
+    </td>
+    <td>
+        <button class=redbutton ng-click="musician">Platform</button>
+    </td>
+</tr>
+</table>
+</body>
+</html> 
+
+';
+
+
+
+?>
+
+

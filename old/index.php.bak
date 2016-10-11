@@ -1,0 +1,259 @@
+<?php
+
+$normal_background = 'bgcolor="404040"';
+$alert_background = 'background="images/alert_background.gif"';
+$body_background = $normal_background;
+$message = $_POST['message'];
+
+if ($_POST['reset_message']){
+    $message = "";
+    //RUN Query here to Clear message in mysql table
+}
+
+//Functions ########################################
+
+/*
+function update_buttons(){
+    foreach ($Lights as $i => &$light){
+        //echo $Lights[Light1][status];
+        $status =  $Lights[$i][status];
+        //echo $status;
+        if ($status == "On"){
+            $Lights[$i][button] = 'background-color:green;border';
+            //echo '$Lights['.$i.'][status] = '.$Lights[$i][status].'<br>';
+            //echo '$Lights['.$i.'][button] = '.$Lights[$i][button].'<br>';
+        }
+        if ($status == "Off"){
+            $Lights[$i][button] = 'background-color:red;border';
+            //echo '$Lights['.$i.'][status] = '.$Lights[$i][status].'<br>';
+            //echo '$Lights['.$i.'][button] = '.$Lights[$i][button].'<br>';
+        }
+
+    };
+
+}
+*/
+
+
+function buttons(){
+
+//Set button colors from database
+$db_server = "localhost";
+$db_name = "soundman_sound";
+$db_user = "soundman_sound";
+$db_pass = "GZq9Jizs";
+$conn = mysql_connect($db_server,$db_user,$db_pass);
+@mysql_select_db($db_name, $conn) or die( "Unable to select $db_name");
+//mysql_close($conn);
+
+//$drum_vol_query1 = "select status from button_status where name='drum_vol_up'";
+
+$drum_vol_up_query = "select status from button_status where name='drum_vol_up'";
+$piano_vol_up_query = "select status from button_status where name='piano_vol_up'";
+$guitar_vol_up_query = "select status from button_status where name='guitar_vol_up'";
+$bass_vol_up_query = "select status from button_status where name='bass_vol_up'";
+$leader_vol_up_query = "select status from button_status where name='leader_vol_up'";
+$alto_vol_up_query = "select status from button_status where name='alto_vol_up'";
+$soprano_vol_up_query = "select status from button_status where name='soprano_vol_up'";
+$tenor_vol_up_query = "select status from button_status where name='tenor_vol_up'";
+
+$drum_vol_dn_query = "select status from button_status where name='drum_vol_dn'";
+$piano_vol_dn_query = "select status from button_status where name='piano_vol_dn'";
+$guitar_vol_dn_query = "select status from button_status where name='guitar_vol_dn'";
+$bass_vol_dn_query = "select status from button_status where name='bass_vol_dn'";
+$leader_vol_dn_query = "select status from button_status where name='leader_vol_dn'";
+$alto_vol_dn_query = "select status from button_status where name='alto_vol_dn'";
+$soprano_vol_dn_query = "select status from button_status where name='soprano_vol_dn'";
+$tenor_vol_dn_query = "select status from button_status where name='tenor_vol_dn'";
+
+$button_list = array (drum_vol_dn, piano_vol_dn, guitar_vol_dn, bass_vol_dn, leader_vol_dn, alto_vol_dn, soprano_vol_dn, tenor_vol_dn, drum_vol_up, piano_vol_up, guitar_vol_up, bass_vol_up, leader_vol_up, alto_vol_up, soprano_vol_up, tenor_vol_up);
+
+
+
+//TO GET STATUS
+$drum_vol_up_button = mysql_fetch_assoc(mysql_query($drum_vol_up_query));
+$drum_vol_up_button = $drum_vol_up_button[status];
+echo $drum_vol_up_button;
+//END
+
+mysql_close($conn);
+
+foreach ($button_list as $i => &$button){
+    //echo $button;
+
+    if ($status == "On"){
+        $Lights[$i][button] = 'background-color:green;border';
+        //echo '$Lights['.$i.'][status] = '.$Lights[$i][status].'<br>';
+        //echo '$Lights['.$i.'][button] = '.$Lights[$i][button].'<br>';
+    }
+    if ($status == "Off"){
+        $Lights[$i][button] = 'background-color:red;border';
+        //echo '$Lights['.$i.'][status] = '.$Lights[$i][status].'<br>';
+            //echo '$Lights['.$i.'][button] = '.$Lights[$i][button].'<br>';
+    }
+
+};
+
+//For diagnosing the "vol_up_button" and "vol_dn_button" setting
+echo "<br>drum_vol_up_button = ".$drum_vol_up_button;
+echo "<br>piano_vol_up_button = ".$piano_vol_up_button;
+echo "<br>guitar_vol_up_button = ".$guitar_vol_up_button;
+echo "<br>bass_vol_up_button = ".$bass_vol_up_button;
+echo "<br>leader_vol_up_button = ".$leader_vol_up_button;
+echo "<br>alto_vol_up_button = ".$alto_vol_up_button;
+echo "<br>soprano_vol_up_button = ".$soprano_vol_up_button;
+echo "<br>tenor_vol_up_button = ".$tenor_vol_up_button;
+echo "<br><br>";
+echo "<br>drum_vol_dn_button = ".$drum_vol_dn_button;
+echo "<br>piano_vol_dn_button = ".$piano_vol_dn_button;
+echo "<br>guitar_vol_dn_button = ".$guitar_vol_dn_button;
+echo "<br>bass_vol_dn_button = ".$bass_vol_dn_button;
+echo "<br>leader_vol_dn_button = ".$leader_vol_dn_button;
+echo "<br>alto_vol_dn_button = ".$alto_vol_dn_button;
+echo "<br>soprano_vol_dn_button = ".$soprano_vol_dn_button;
+echo "<br>tenor_vol_dn_button = ".$tenor_vol_dn_button;
+
+
+
+
+// Code that sets the class for the button
+//$drum_vol_up_button = 0;
+if ($drum_vol_up_button == 0){
+    $drum_vol_up_class = "greenbutton";
+}else if ($drum_vol_up_button == 1){
+    $drum_vol_up_class = "redbutton";
+}
+//END
+
+    echo '
+    <table border=0 cellpadding=20 style="margin: o auto">
+    <form action="index.php" method=POST>
+    <!--
+    <tr>
+        <td>
+        </td>
+        <td align=center colspan=2>
+        <input class=greenbutton type="submit" name="monitors_button" value="Monitors">
+        <input class=greenbutton type="submit" name="mains_button" value="Mains">
+        </td>
+        <td>
+        </td>
+    </tr>
+    --!>
+    <tr>
+        <td align=center colspan=4>
+            <font size=10>Music
+        </td>
+    </tr>
+    <tr>
+        <td align=center>
+            <font size=6>Drums <br><br>
+            <input class='.$drum_vol_up_class.' type="submit" name="drum_vol_up" value="Vol Up"><br><br>
+       	    <input class=greenbutton type="submit" name="drum_vol_dn" value="Vol Dn">
+        </td>
+        <td align=center>
+            <font size=6>Piano <br><br>
+            <input class=greenbutton type="submit" name="piano_vol_up" value="Vol Up"><br><br>
+            <input class=greenbutton type="submit" name="piano_vol_dn" value="Vol Dn">
+        </td>
+        <td align=center>
+            <font size=6>Guitar <br><br>
+            <input class=greenbutton type="submit" name="guitar_vol_up" value="Vol Up"><br><br>
+            <input class=greenbutton type="submit" name="guitar_vol_dn" value="Vol Dn">
+        </td>
+        <td align=center>
+            <font size=6>Bass <br><br>
+            <input class=greenbutton type="submit" name="bass_vol_up" value="Vol Up"><br><br>
+            <input class=greenbutton type="submit" name="bass_vol_dn" value="Vol Dn">
+        </td>
+    </tr>
+    <tr>
+        <td align=center colspan=4>
+            <font size=10>Vocals
+        </td>
+    </tr>
+    <tr>
+        <td align=center>
+            <font size=6>Leader <br><br>
+            <input class=greenbutton type="submit" name="leader_vol_up" value="Vol Up"><br><br>
+            <input class=greenbutton type="submit" name="leader_vol_dn" value="Vol Dn">
+        </td>
+        <td align=center>
+            <font size=6>Soprano <br><br>
+            <input class=greenbutton type="submit" name="soprano_vol_up" value="Vol Up"><br><br>
+            <input class=greenbutton type="submit" name="soprano_vol_dn" value="Vol Dn">
+        </td>
+        <td align=center>
+            <font size=6>Alto <br><br>
+            <input class=greenbutton type="submit" name="alto_vol_up" value="Vol Up"><br><br>
+            <input class=greenbutton type="submit" name="alto_vol_dn" value="Vol Dn">
+        </td>
+        <td align=center>
+            <font size=6>Tenor <br><br>
+            <input class=greenbutton type="submit" name="tenor_vol_up" value="Vol Up"><br><br>
+            <input class=greenbutton type="submit" name="tenor_vol_dn" value="Vol Dn">
+        </td>
+    </tr>
+    </form>
+</table>
+';
+}
+
+function text_message($message){
+    echo '<br><br>
+    <form action="index.php" method=POST>
+    <input style="width:400" type="text" name="message">
+    <input class=blackbutton type="submit" value="Send">
+    <input class=blackbutton type="submit" name="reset_message" value="Clear">
+    ';
+    echo "<br><br>";
+    echo "$message" ;
+}
+
+//$style = require_once('style.css');
+$header1 = '
+<html>
+<head>'
+;
+
+$header2 = '
+</head>
+
+';
+
+$body = '
+<body '.$body_background.' text=white>
+
+<table cellpadding=10 border=0 style="margin: 0 auto;">
+<tr>
+    <td align=center>
+<!--
+    <h1>Hey Mr. Soundguy</h1>
+--!>
+';
+
+$footer = '
+    </td>
+</tr>
+</table>
+
+
+</div>
+</body>
+</html>
+
+';
+
+echo $header1;
+echo '<link rel="stylesheet" href="style.css" type="text/css">';
+echo $header2;
+echo $body;
+buttons();
+echo "<br><br>";
+text_message($message);
+echo $footer;
+
+
+?>
+
+

@@ -1,0 +1,49 @@
+<?php 
+
+$db_server = "localhost";
+$db_name = "soundman_sound";
+$db_user = "soundman_sound";
+$db_pass = "GZq9Jizs";
+
+mysql_connect($db_server,$db_user,$db_pass);
+@mysql_select_db($db_name) or die( "Unable to select $db_name");
+
+
+$query = "SELECT * FROM buttons";
+$result = mysql_query($query);
+$num=mysql_numrows($result);
+foreach ($result as $i){
+  echo $i;
+}
+$fetch = mysql_fetch_array($result);
+//var_dump($fetch);
+mysql_close();
+
+echo '
+
+<html>
+
+<script src="angular.min.js"></script>
+
+<body>
+
+
+<div ng-app="">
+  <p>Name : <input type="text" ng-model="name"></p>
+  <h1>Hello {{name}}</h1>
+  <button ng-click="count = count + 1">Click Me!</button>
+<p>{{count}}</p>
+</div>
+
+
+
+</body>
+</html> 
+
+';
+
+
+
+?>
+
+
